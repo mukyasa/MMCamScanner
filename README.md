@@ -10,9 +10,9 @@ OpenCV:http://opencv.org/
 
 **This Project Contains**
 
-1.Custom Camera(Support Potrait Only Now) with Zoom Slider,Pinch Zoom,Tap to Focus features also.
-2.Custom Ripple View Controller Animation
-3.OpenCV square Detection in Image for detecting objects
-4.OpenCV perpespective and warptransform for CROP feature
-5.Crop Validation for checking INVALID RECT
-6.Memory Efficient Camera(Thanks to SimpleCam)
+1.Custom Camera(Support Potrait Only Now) with Zoom Slider,Pinch Zoom,Tap to Focus features also.<br />
+2.Custom Ripple View Controller Animation.<br />
+3.OpenCV square Detection in Image for detecting objects.<br />
+4.OpenCV perpespective and warptransform for CROP feature.<br />
+5.Crop Validation for checking INVALID RECT.<br />
+6.Memory Efficient Camera(Thanks to SimpleCam Project).<br />
