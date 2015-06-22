@@ -4,8 +4,10 @@ Simulation to CamScanner app With Custom Camera and Crop Rect Validation
 ![MMCamScanner](https://github.com/mukyasa/MMCamScanner/blob/master/camscan.gif)
 
 **Framework**
+Add the Frameworks to see the Demo
 
-OpenCV:http://opencv.org/
+OpenCV:http://opencv.org/<br />
+Tesseract OCR:https://github.com/gali8/Tesseract-OCR-iOS
 
 **Thanks to Stackoverflow for solving queries related to OpenCV**
 
