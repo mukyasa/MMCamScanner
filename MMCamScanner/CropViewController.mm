@@ -25,14 +25,15 @@
     _sourceImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-kCameraToolBarHeight-64)];
     [_sourceImageView setContentMode:UIViewContentModeScaleAspectFit];
     [_sourceImageView setImage:_adjustedImage];
+//     [_sourceImageView setImage:[UIImage imageNamed:@"testtwo.jpg"]];
     _sourceImageView.clipsToBounds=YES;
     
     [self.view addSubview:_sourceImageView];
+  
+//    NSLog(@"%f %f",_sourceImageView.contentFrame.size.height,_sourceImageView.contentFrame.size.height);
     
-    NSLog(@"%f %f",_adjustedImage.size.width,_sourceImageView.contentFrame.size.height);
     
-    
-    CGRect cropFrame=CGRectMake(_sourceImageView.contentFrame.origin.x,64,_sourceImageView.contentFrame.size.width,_sourceImageView.contentFrame.size.height);
+    CGRect cropFrame=CGRectMake(_sourceImageView.contentFrame.origin.x,_sourceImageView.contentFrame.origin.y+64,_sourceImageView.contentFrame.size.width,_sourceImageView.contentFrame.size.height);
     _cropRect= [[MMCropView alloc] initWithFrame:cropFrame];
     [self.view addSubview:_cropRect];
     
@@ -41,6 +42,7 @@
     [_cropRect addGestureRecognizer:singlePan];
 
     [self setCropUI];
+    [self.view bringSubviewToFront:_cropRect];
     
         
 }
@@ -62,6 +64,8 @@
     self.cropBut.clipsToBounds=YES;
     
     [self.cropBut setImage:[UIImage renderImage:@"Crop"] forState:UIControlStateNormal];
+    
+   
 
 }
 
@@ -190,8 +194,10 @@
 void find_squares(cv::Mat& image, std::vector<std::vector<cv::Point>>&squares) {
     
     // blur will enhance edge detection
+   
     cv::Mat blurred(image);
-    medianBlur(image, blurred, 9);
+//    medianBlur(image, blurred, 9);
+    GaussianBlur(image, blurred, cvSize(11,11), 0);//change from median blur to gaussian for more accuracy of square detection
     
     cv::Mat gray0(blurred.size(), CV_8U), gray;
     std::vector<std::vector<cv::Point> > contours;
@@ -365,20 +371,34 @@ cv::Mat debugSquares( std::vector<std::vector<cv::Point> > squares, cv::Mat imag
         
     cv::warpPerspective(original, undistorted, cv::getPerspectiveTransform(src, dst), cvSize(maxWidth, maxHeight));
    
-//    cv::Mat grayImage=[MMOpenCVHelper cvMatGrayFromUIImage:[MMOpenCVHelper UIImageFromCVMat:undistorted]];
-    
+        /*gray image logic*/
+//        cv::Mat grayImage = [MMOpenCVHelper cvMatGrayFromAdjustedUIImage:[MMOpenCVHelper UIImageFromCVMat:undistorted]];
+//        
+//        cv::GaussianBlur(grayImage, grayImage, cvSize(11,11), 0);
+//        cv::adaptiveThreshold(grayImage, grayImage, 255, cv::ADAPTIVE_THRESH_MEAN_C, cv::THRESH_BINARY, 5, 2);
+
     [UIView transitionWithView:_sourceImageView duration:0.3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-         _sourceImageView.image = [MMOpenCVHelper UIImageFromCVMat:undistorted];
-    } completion:^(BOOL finished) {
+       
+        _sourceImageView.image=[MMOpenCVHelper UIImageFromCVMat:undistorted];
         
+//         _sourceImageView.image = [MMOpenCVHelper UIImageFromCVMat:grayImage];//For gray image
+        
+    } completion:^(BOOL finished) {
+//       UIImageWriteToSavedPhotosAlbum(_sourceImageView.image, nil, nil, nil);
     }];
         
-      
     original.release();
     undistorted.release();
         
+       
+        
     }
+    else{
+        UIAlertView  *alertView = [[UIAlertView alloc] initWithTitle:@"MMCamScanner" message:@"Invalid Rect" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alertView show];
 
+    }
+   
 }
 
 - (IBAction)dismissAction:(id)sender {

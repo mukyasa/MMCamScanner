@@ -256,15 +256,50 @@
                                     <action selector="cameraAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="ee8-kp-GGa"/>
                                 </connections>
                             </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="FqI-Ln-neh">
+                                <rect key="frame" x="175" y="35" width="250" height="450"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="azX-s7-giK"/>
+                                </constraints>
+                                <string key="text" base64-UTF8="YES">
+VGhpcyBDb250cm9sIENvbnNpc3QgT2YgQ3Vzb3RtIENhbWVyYSxEb2N1bWVudCBTY2FubmVyIFdpdGgg
+Q3JvcCBGZWF0dXJlLkl0IEFsc28gQ29udGFpbiBDdXN0b20gUmlwcGxlIFZpZXcgQ29udHJvbGxlciBB
+bmltYXRpb24uU3F1YXJlIERldGVjdGlvbiBBbmQgEENyb3AgRmVhdHVyZSBpcyBBZGRlZCBXaXRoIEhl
+bHAgT2YgT3BlbkNWIEZyYW1ld29yay4
+</string>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Scw-t4-mB7">
+                                <rect key="frame" x="524" y="540" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="4RN-ey-NKb"/>
+                                    <constraint firstAttribute="height" constant="40" id="RES-F0-ba5"/>
+                                </constraints>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="pickerAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="hKH-Pn-nDt"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="Scw-t4-mB7" secondAttribute="bottom" constant="20" id="1di-L9-4iy"/>
+                            <constraint firstAttribute="centerX" secondItem="FqI-Ln-neh" secondAttribute="centerX" id="Obs-S1-Csw"/>
+                            <constraint firstAttribute="trailing" secondItem="Scw-t4-mB7" secondAttribute="trailing" constant="36" id="VxP-sS-Wpg"/>
                             <constraint firstAttribute="centerX" secondItem="jVV-13-tP1" secondAttribute="centerX" id="Wag-y7-nax"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="jVV-13-tP1" secondAttribute="bottom" constant="20" id="XX9-zv-DnX"/>
+                            <constraint firstItem="FqI-Ln-neh" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="15" id="gyF-78-sFV"/>
+                            <constraint firstItem="jVV-13-tP1" firstAttribute="top" secondItem="FqI-Ln-neh" secondAttribute="bottom" constant="20" id="zut-a2-nDb"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="cameraBut" destination="jVV-13-tP1" id="NMM-1E-Qgh"/>
+                        <outlet property="pickerBut" destination="Scw-t4-mB7" id="q6g-l6-8mb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>

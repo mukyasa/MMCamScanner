@@ -176,6 +176,7 @@
     if (_imageStreamV == nil) _imageStreamV = [[UIView alloc]init];
     _imageStreamV.alpha = 1;
     _imageStreamV.frame = self.view.bounds;
+//    _imageStreamV.frame=CGRectMake(0, 64, self.view.bounds.size.width, 350);
     [self.view addSubview:_imageStreamV];
     
     // SETTING UP CAM
@@ -229,6 +230,7 @@
     _capturedImageV.frame = _imageStreamV.frame; // just to even it out
     _capturedImageV.backgroundColor = [UIColor clearColor];
     _capturedImageV.userInteractionEnabled = YES;
+    _capturedImageV.clipsToBounds=YES;
     _capturedImageV.contentMode = UIViewContentModeScaleAspectFill;
     [self.view insertSubview:_capturedImageV aboveSubview:_imageStreamV];
     

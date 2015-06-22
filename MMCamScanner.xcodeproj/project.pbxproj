@@ -18,14 +18,19 @@
 		5509318C1B26C56A00E243F8 /* MMCameraPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5509318B1B26C56A00E243F8 /* MMCameraPickerController.m */; };
 		5509318F1B26D12400E243F8 /* CameraFocusSquare.m in Sources */ = {isa = PBXBuildFile; fileRef = 5509318E1B26D12400E243F8 /* CameraFocusSquare.m */; };
 		550931921B26E30100E243F8 /* MMOpenCVHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 550931911B26E30100E243F8 /* MMOpenCVHelper.mm */; };
-		550931941B26E32D00E243F8 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550931931B26E32D00E243F8 /* opencv2.framework */; };
 		5509319A1B26E45B00E243F8 /* UIImage+fixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 550931971B26E45B00E243F8 /* UIImage+fixOrientation.m */; };
 		5509319B1B26E45B00E243F8 /* UIImageView+ContentFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 550931991B26E45B00E243F8 /* UIImageView+ContentFrame.m */; };
 		5509319F1B26EA8500E243F8 /* CropViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5509319E1B26EA8500E243F8 /* CropViewController.mm */; };
 		550931A11B26EE0400E243F8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550931A01B26EE0400E243F8 /* CoreGraphics.framework */; };
 		550931AA1B26F3D800E243F8 /* MTGeometry.c in Sources */ = {isa = PBXBuildFile; fileRef = 550931A81B26F3D800E243F8 /* MTGeometry.c */; };
 		550931AD1B2714EE00E243F8 /* MMCropView.m in Sources */ = {isa = PBXBuildFile; fileRef = 550931AC1B2714EE00E243F8 /* MMCropView.m */; };
+		554456641B32F00200A88657 /* sample.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 554456631B32F00200A88657 /* sample.jpg */; };
 		554649831B2FD5BF003B2AC4 /* RippleAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 554649821B2FD5BF003B2AC4 /* RippleAnimation.m */; };
+		554649861B3055B0003B2AC4 /* TesseractOCR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 554649851B3055B0003B2AC4 /* TesseractOCR.framework */; };
+		554649881B3055C8003B2AC4 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 554649871B3055C8003B2AC4 /* libstdc++.dylib */; };
+		5556DD7C1B3130B200564C82 /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = 5556DD7B1B3130B200564C82 /* tessdata */; };
+		5556DD7E1B314FEA00564C82 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5556DD7D1B314FEA00564C82 /* CoreImage.framework */; };
+		5556DD801B31A93800564C82 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5556DD7F1B31A93800564C82 /* opencv2.framework */; };
 		55FDF9971B2A9061001400E1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FDF9961B2A9061001400E1 /* ViewController.swift */; };
 		55FDF9991B2AAEA7001400E1 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FDF9981B2AAEA7001400E1 /* AssetsLibrary.framework */; };
 		55FDF99C1B2B0851001400E1 /* UIColor+HexRepresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FDF99B1B2B0851001400E1 /* UIColor+HexRepresentation.m */; };
@@ -62,7 +67,6 @@
 		5509318E1B26D12400E243F8 /* CameraFocusSquare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraFocusSquare.m; sourceTree = "<group>"; };
 		550931901B26E30100E243F8 /* MMOpenCVHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMOpenCVHelper.h; sourceTree = "<group>"; };
 		550931911B26E30100E243F8 /* MMOpenCVHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MMOpenCVHelper.mm; sourceTree = "<group>"; };
-		550931931B26E32D00E243F8 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		550931961B26E45B00E243F8 /* UIImage+fixOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+fixOrientation.h"; sourceTree = "<group>"; };
 		550931971B26E45B00E243F8 /* UIImage+fixOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+fixOrientation.m"; sourceTree = "<group>"; };
 		550931981B26E45B00E243F8 /* UIImageView+ContentFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+ContentFrame.h"; sourceTree = "<group>"; };
@@ -74,8 +78,14 @@
 		550931A91B26F3D800E243F8 /* MTGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTGeometry.h; sourceTree = "<group>"; };
 		550931AB1B2714EE00E243F8 /* MMCropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMCropView.h; sourceTree = "<group>"; };
 		550931AC1B2714EE00E243F8 /* MMCropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMCropView.m; sourceTree = "<group>"; };
+		554456631B32F00200A88657 /* sample.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = sample.jpg; sourceTree = "<group>"; };
 		554649811B2FD5BF003B2AC4 /* RippleAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RippleAnimation.h; sourceTree = "<group>"; };
 		554649821B2FD5BF003B2AC4 /* RippleAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RippleAnimation.m; sourceTree = "<group>"; };
+		554649851B3055B0003B2AC4 /* TesseractOCR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TesseractOCR.framework; sourceTree = "<group>"; };
+		554649871B3055C8003B2AC4 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
+		5556DD7B1B3130B200564C82 /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
+		5556DD7D1B314FEA00564C82 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		5556DD7F1B31A93800564C82 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		55FDF9951B2A9060001400E1 /* MMCamScanner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MMCamScanner-Bridging-Header.h"; sourceTree = "<group>"; };
 		55FDF9961B2A9061001400E1 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		55FDF9981B2AAEA7001400E1 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
@@ -88,9 +98,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5556DD7E1B314FEA00564C82 /* CoreImage.framework in Frameworks */,
+				5556DD801B31A93800564C82 /* opencv2.framework in Frameworks */,
+				554649881B3055C8003B2AC4 /* libstdc++.dylib in Frameworks */,
+				554649861B3055B0003B2AC4 /* TesseractOCR.framework in Frameworks */,
 				55FDF9991B2AAEA7001400E1 /* AssetsLibrary.framework in Frameworks */,
 				550931A11B26EE0400E243F8 /* CoreGraphics.framework in Frameworks */,
-				550931941B26E32D00E243F8 /* opencv2.framework in Frameworks */,
 				550931881B26C4F300E243F8 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -108,10 +121,13 @@
 		550931551B26C2A500E243F8 = {
 			isa = PBXGroup;
 			children = (
+				554649871B3055C8003B2AC4 /* libstdc++.dylib */,
+				554456631B32F00200A88657 /* sample.jpg */,
 				55FDF9961B2A9061001400E1 /* ViewController.swift */,
 				550931601B26C2A500E243F8 /* MMCamScanner */,
 				5509317A1B26C2A600E243F8 /* MMCamScannerTests */,
 				5509315F1B26C2A500E243F8 /* Products */,
+				5556DD7F1B31A93800564C82 /* opencv2.framework */,
 				550931891B26C50900E243F8 /* FrameWorks */,
 				55FDF9951B2A9060001400E1 /* MMCamScanner-Bridging-Header.h */,
 			);
@@ -153,6 +169,7 @@
 		550931611B26C2A500E243F8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5556DD7B1B3130B200564C82 /* tessdata */,
 				550931621B26C2A500E243F8 /* Info.plist */,
 				550931631B26C2A500E243F8 /* main.m */,
 			);
@@ -179,9 +196,10 @@
 		550931891B26C50900E243F8 /* FrameWorks */ = {
 			isa = PBXGroup;
 			children = (
+				5556DD7D1B314FEA00564C82 /* CoreImage.framework */,
+				554649851B3055B0003B2AC4 /* TesseractOCR.framework */,
 				55FDF9981B2AAEA7001400E1 /* AssetsLibrary.framework */,
 				550931A01B26EE0400E243F8 /* CoreGraphics.framework */,
-				550931931B26E32D00E243F8 /* opencv2.framework */,
 				550931871B26C4F300E243F8 /* AVFoundation.framework */,
 			);
 			name = FrameWorks;
@@ -305,6 +323,8 @@
 			files = (
 				5509316D1B26C2A500E243F8 /* Main.storyboard in Resources */,
 				550931721B26C2A500E243F8 /* LaunchScreen.xib in Resources */,
+				554456641B32F00200A88657 /* sample.jpg in Resources */,
+				5556DD7C1B3130B200564C82 /* tessdata in Resources */,
 				5509316F1B26C2A500E243F8 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

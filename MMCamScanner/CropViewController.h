@@ -20,10 +20,9 @@
 @interface CropViewController : UIViewController
 @property (weak,nonatomic) id<MMCropDelegate> cropdelegate;
 @property (strong, nonatomic) UIImageView *sourceImageView;
-@property (strong, nonatomic) UIImage *sourceImage;
 @property (weak, nonatomic) IBOutlet UIButton *dismissBut;
 @property (weak, nonatomic) IBOutlet UIButton *cropBut;
-@property (strong, nonatomic) UIImage *adjustedImage;
+@property (strong, nonatomic) UIImage *adjustedImage,*cropgrayImage,*cropImage;
 - (IBAction)cropAction:(id)sender;
 - (IBAction)dismissAction:(id)sender;
 

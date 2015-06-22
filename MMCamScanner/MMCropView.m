@@ -27,6 +27,8 @@
         _pointC=[[UIView alloc] init];
         _pointD=[[UIView alloc] init];
         
+        _pointA.alpha=0.5;_pointB.alpha=0.5;_pointC.alpha=0.5;_pointD.alpha=0.5;
+        
         _pointA.layer.cornerRadius = kCropButtonSize/2;
         _pointB.layer.cornerRadius = kCropButtonSize/2;
         _pointC.layer.cornerRadius = kCropButtonSize/2;
@@ -100,16 +102,16 @@
     
     switch (point) {
         case 1:
-            tmp = CGPointMake(_pointA.frame.origin.x / scaleFactor, _pointA.frame.origin.y / scaleFactor);
+            tmp = CGPointMake((_pointA.frame.origin.x+15) / scaleFactor, (_pointA.frame.origin.y+15) / scaleFactor);
             break;
         case 2:
-            tmp = CGPointMake(_pointB.frame.origin.x / scaleFactor, _pointB.frame.origin.y / scaleFactor);
+            tmp = CGPointMake((_pointB.frame.origin.x+15) / scaleFactor, (_pointB.frame.origin.y+15) / scaleFactor);
             break;
         case 3:
-            tmp = CGPointMake(_pointC.frame.origin.x / scaleFactor, _pointC.frame.origin.y / scaleFactor);
+            tmp = CGPointMake((_pointC.frame.origin.x+15) / scaleFactor, (_pointC.frame.origin.y+15) / scaleFactor);
             break;
         case 4:
-            tmp =  CGPointMake(_pointD.frame.origin.x / scaleFactor, _pointD.frame.origin.y / scaleFactor);
+            tmp =  CGPointMake((_pointD.frame.origin.x+15) / scaleFactor, (_pointD.frame.origin.y+15) / scaleFactor);
             break;
     }
     
@@ -128,10 +130,15 @@
 
 - (void)setPoints
 {
-    a = CGPointMake(0 + 15, self.bounds.size.height - 15);
-    b = CGPointMake(self.bounds.size.width - 15, self.bounds.size.height - 15);
-    c = CGPointMake(self.bounds.size.width - 15, 0 + 15);
-    d = CGPointMake(0 + 15, 0 + 15);
+//    a = CGPointMake(0 + 15, self.bounds.size.height - 15);
+//    b = CGPointMake(self.bounds.size.width - 15, self.bounds.size.height - 15);
+//    c = CGPointMake(self.bounds.size.width - 15, 0 + 15);
+//    d = CGPointMake(0 + 15, 0 + 15);
+    a = CGPointMake(0 + 0, self.bounds.size.height - 0);
+    b = CGPointMake(self.bounds.size.width - 0, self.bounds.size.height - 0);
+    c = CGPointMake(self.bounds.size.width - 0, 0 + 0);
+    d = CGPointMake(0 + 0, 0 + 0);
+
 }
 
 - (void)setButtons
@@ -189,11 +196,11 @@
         CGContextSetRGBFillColor(context, 0.0f, 0.0f, 0.0f, 0.0f);
         if([self checkForNeighbouringPoints:currentIndex]>=0 ){
             frameMoved=YES;
-             CGContextSetRGBStrokeColor(context, 1.00f, 0.43f, 0.08f, 1.0f);
+             CGContextSetRGBStrokeColor(context, 0.1294f, 0.588f, 0.9529f, 1.0f);
         }
         else{
             frameMoved=NO;
-             CGContextSetRGBStrokeColor(context, 0.00f, 0.0f, 0.0f, 1.0f);
+             CGContextSetRGBStrokeColor(context, 0.9568f, 0.262f, 0.211f, 1.0f);
         }
         CGContextSetLineJoin(context, kCGLineJoinRound);
         CGContextSetLineWidth(context, 4.0f);
@@ -203,10 +210,6 @@
         CGContextFillRect(context, boundingRect);
         
         CGMutablePathRef pathRef = CGPathCreateMutable();
-//        CGPathMoveToPoint(pathRef, NULL, a.x, a.y);
-//        CGPathAddLineToPoint(pathRef, NULL, b.x, b.y);
-//        CGPathAddLineToPoint(pathRef, NULL, c.x, c.y);
-//        CGPathAddLineToPoint(pathRef, NULL, d.x, d.y);
         
         CGPathMoveToPoint(pathRef, NULL, _pointA.frame.origin.x+15, _pointA.frame.origin.y+15);
         CGPathAddLineToPoint(pathRef, NULL, _pointB.frame.origin.x+15, _pointB.frame.origin.y+15);
@@ -465,7 +468,7 @@
     for (UIView *point in self.points)
     {
         
-        CGRect extentedFrame = CGRectInset(point.frame, -20, -20);
+        CGRect extentedFrame = CGRectInset(point.frame, -30, -30);
         
         NSLog(@"For Point %d Location%f %f and Point %f %f",i,location.x,location.y,point.frame.origin.x,point.frame.origin.y);
         if (CGRectContainsPoint(extentedFrame, location))
@@ -494,15 +497,15 @@
     CGFloat newX = locationPoint.x;
     CGFloat newY = locationPoint.y;
     //cap off possible values
-    if(newX<20){
-        newX=20;
-    }else if(newX>self.frame.size.width-20){
-        newX = self.frame.size.width-20;
+    if(newX<self.bounds.origin.x){
+        newX=self.bounds.origin.x;
+    }else if(newX>self.frame.size.width){
+        newX = self.frame.size.width;
     }
-    if(newY<20){
-        newY=20;
-    }else if(newY>self.frame.size.height-20){
-        newY = self.frame.size.height-20;
+    if(newY<self.bounds.origin.y){
+        newY=self.bounds.origin.y;
+    }else if(newY>self.frame.size.height){
+        newY = self.frame.size.height;
     }
     locationPoint = CGPointMake(newX, newY);
     
@@ -515,5 +518,34 @@
     
     
 }
+
+
+//- (void)moveActivePointToLocation:(CGPoint)locationPoint
+//{
+//    //    NSLog(@"location: %f,%f", locationPoint.x, locationPoint.y);
+//    CGFloat newX = locationPoint.x;
+//    CGFloat newY = locationPoint.y;
+//    //cap off possible values
+//    if(newX<15){
+//        newX=15;
+//    }else if(newX>self.frame.size.width-15){
+//        newX = self.frame.size.width-15;
+//    }
+//    if(newY<15){
+//        newY=15;
+//    }else if(newY>self.frame.size.height-15){
+//        newY = self.frame.size.height-15;
+//    }
+//    locationPoint = CGPointMake(newX, newY);
+//    
+//    if (self.activePoint){
+//        self.activePoint.frame = CGRectMake(locationPoint.x -kCropButtonSize/2, locationPoint.y -kCropButtonSize/2, kCropButtonSize, kCropButtonSize);
+//        [self setNeedsDisplay];
+//        
+//        NSLog(@"Point D %f %f",_pointD.frame.origin.x,_pointD.frame.origin.y);
+//    }
+//    
+//    
+//}
 
 @end
