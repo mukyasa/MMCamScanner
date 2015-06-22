@@ -19,6 +19,7 @@ Tesseract OCR:https://github.com/gali8/Tesseract-OCR-iOS
 4.OpenCV perpespective and warptransform for CROP feature.<br />
 5.Crop Validation for checking INVALID RECT.<br />
 6.Memory Efficient Camera(Thanks to SimpleCam Project).<br />
+7.Tesseract OCR.<br />
 
 Contact Me
 ==========
