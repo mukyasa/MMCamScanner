@@ -16,3 +16,15 @@ OpenCV:http://opencv.org/
 4.OpenCV perpespective and warptransform for CROP feature.<br />
 5.Crop Validation for checking INVALID RECT.<br />
 6.Memory Efficient Camera(Thanks to SimpleCam Project).<br />
+
+Contact Me
+==========
+Mukesh Mandora
+
+Contact: mandoramuku07@gmail.com
+
+Twitter: http://twitter.com/mukyasa1310
+
+LinkedIn: https://in.linkedin.com/in/mukeshmandora
+
+Github:https://github.com/mukyasa
