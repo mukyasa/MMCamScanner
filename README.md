@@ -22,7 +22,7 @@ Tesseract OCR:https://github.com/gali8/Tesseract-OCR-iOS
 7.Tesseract OCR.<br />
 
 
-**My Other Repositires**
+**My Other Repositories**
 
 **MMPaper:**<br />
 https://github.com/mukyasa/MMPaper<br />
