@@ -21,6 +21,19 @@ Tesseract OCR:https://github.com/gali8/Tesseract-OCR-iOS
 6.Memory Efficient Camera(Thanks to SimpleCam Project).<br />
 7.Tesseract OCR.<br />
 
+
+**My Other Repositires**
+
+**MMPaper:**<br />
+https://github.com/mukyasa/MMPaper<br />
+
+**MMPaperPanFlip:**<br /> 
+https://github.com/mukyasa/MMPaperPanFlip<br />
+
+**MMTransitionEffect:**<br />
+https://github.com/mukyasa/MMTransitionEffect<br />
+
+
 Contact Me
 ==========
 Mukesh Mandora
