@@ -16,18 +16,18 @@ Tesseract OCR:https://github.com/gali8/Tesseract-OCR-iOS
 
 **Credits**<br />
 
--Excellent Square Detection Code Ref:[Here](http://stackoverflow.com/questions/8667818/opencv-c-obj-c-detecting-a-sheet-of-paper-square-detection) and [Here](https://github.com/Itseez/opencv/blob/master/samples/cpp/squares.cpp)<br />
+Excellent Square Detection Code Ref:[Here](http://stackoverflow.com/questions/8667818/opencv-c-obj-c-detecting-a-sheet-of-paper-square-detection) and [Here](https://github.com/Itseez/opencv/blob/master/samples/cpp/squares.cpp)<br />
 
--OpenCV Tutorials:[Here](http://opencv.org/">http://opencv.org)<br />
+OpenCV Tutorials:[Here](http://opencv.org/">http://opencv.org)<br />
 
--Custom Camera Project Ref:[Here](https://github.com/LoganWright/SimpleCam)<br />  (LoganWright)
+Custom Camera Project Ref:[Here](https://github.com/LoganWright/SimpleCam)<br />  (LoganWright)
 
--Crop Rect Validation Vector Ref:[Here](https://github.com/mysterioustrousers/MTGeometry) (Mysterious Trousers)
+Crop Rect Validation Vector Ref:[Here](https://github.com/mysterioustrousers/MTGeometry) (Mysterious Trousers)
 
 
 **Also Thanks to this Project from where it is Inspired From**
 
--Maximilian Mackh :[Here](https://github.com/mmackh/MAImagePickerController-of-InstaPDF)
+Maximilian Mackh :[Here](https://github.com/mmackh/MAImagePickerController-of-InstaPDF)
 
 
 **This Project Contains**
