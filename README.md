@@ -3,6 +3,9 @@ Simulation to CamScanner app With Custom Camera and Crop Rect Validation
 
 ![MMCamScanner](https://github.com/mukyasa/MMCamScanner/blob/master/camscan.gif)
 
+Video preview [Here](https://www.youtube.com/watch?v=vO1kA6fjKQ4)
+
+
 **Framework**
 Add the Frameworks to see the Demo
 
