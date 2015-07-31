@@ -1,10 +1,15 @@
 # MMCamScanner
-Simulation to CamScanner app With Custom Camera and Crop Rect Validation 
+####Simulation to CamScanner app With Custom Camera and Crop Rect Validation 
 
 ![MMCamScanner](https://github.com/mukyasa/MMCamScanner/blob/master/camscan.gif)
 
-Video preview [Here](https://www.youtube.com/watch?v=vO1kA6fjKQ4)
-
+#### Video preview [Here](https://www.youtube.com/watch?v=vO1kA6fjKQ4)
+ 
+#### ChangeLog(31/7/2015)
+ * Crop Feature Tweaked for more control in horizontal and vertical dragging.
+ * NOW , Landscape and Potrait both images can be used in scanning the objects in images.
+ * Addded Image Filters (Gray Scale, Magic Color ,Black and White)
+ * Coming Soon(Left Rotate and Right Rotate)
 
 **Framework**
 Add the Frameworks to see the Demo
