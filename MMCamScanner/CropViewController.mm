@@ -14,12 +14,16 @@
 #import "UIColor+HexRepresentation.h"
 #import "MMCropView.h"
 @interface CropViewController (){
-    
+    UIScrollView *scrollView;
 }
 @property (strong, nonatomic) MMCropView *cropRect;
 @end
 
 @implementation CropViewController
+-(BOOL)prefersStatusBarHidden{
+    return YES;
+}
+
 
 -(void)viewDidLoad{
     _sourceImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-kCameraToolBarHeight-64)];
@@ -43,8 +47,79 @@
 
     [self setCropUI];
     [self.view bringSubviewToFront:_cropRect];
+    [self buttonsScroll];
     
+    [UIView animateWithDuration:0.5 animations:^{
+        scrollView.frame=CGRectMake(0, -64, self.view.bounds.size.width, 64);
+    }];
         
+}
+
+
+
+-(void)buttonsScroll{
+    
+    NSArray *butArr=@[@"",@"noedit_filled",@"original_filled",@"blackwhite_filled",@"magic_filled",@"default_filled"];
+    NSArray *labArr=@[@"",@"Original",@"Gray Scale",@"Black & White",@"Magic Color",@"Default"];
+    scrollView=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 64)];
+    [self.view addSubview:scrollView];
+    NSUInteger i;
+    int xCoord=0;
+    int yCoord=0;
+    int buttonWidth=80;
+    int buttonHeight=40;
+    int buffer = 10;
+    for (i = 1; i <= 5; i++)
+    {
+        UIButton *aButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [aButton setImage:[UIImage renderImage:[butArr objectAtIndex:i]] forState:UIControlStateNormal];
+        aButton.frame     = CGRectMake(xCoord, yCoord,buttonWidth,buttonHeight );
+        aButton.tintColor=[UIColor whiteColor];
+        aButton.tag=i;
+        [aButton addTarget:self action:@selector(scrolllButAction:) forControlEvents:UIControlEventTouchUpInside];
+        
+        UILabel *aLabel=[[UILabel alloc] initWithFrame:CGRectMake(xCoord, 40,buttonWidth,24 )];
+        aLabel.text=[labArr objectAtIndex:i];
+        aLabel.textColor=[UIColor whiteColor];
+        [aLabel setAdjustsFontSizeToFitWidth:YES];
+        aLabel.font=[UIFont fontWithName:@"HelveticaNeue-Light" size:14];
+        aLabel.textAlignment=NSTextAlignmentCenter;
+        [scrollView addSubview:aButton];
+        [scrollView addSubview:aLabel];
+        
+        xCoord += buttonWidth + buffer;
+    }
+    [scrollView setContentSize:CGSizeMake(xCoord, yCoord)];
+    scrollView.showsHorizontalScrollIndicator=NO;
+    scrollView.backgroundColor=[UIColor colorWithHexString:backgroundHex];
+}
+
+
+-(void)scrolllButAction:(UIButton *)sender{
+    switch (sender.tag) {
+        case 1:
+            _sourceImageView.image=_cropImage;
+            break;
+        case 2:
+             _sourceImageView.image=[self grayImage:_cropImage];
+            break;
+        case 3:
+            _sourceImageView.image= [self blackandWhite:_cropImage];
+            break;
+        case 4:
+            _sourceImageView.image= [self magicColor:_cropImage];
+            break;
+            
+        case 5:
+            _sourceImageView.image= _adjustedImage;
+            _cropRect.hidden=NO;
+            [UIView animateWithDuration:0.5 animations:^{
+                scrollView.frame=CGRectMake(0, -64, self.view.bounds.size.width, 64);
+                
+            }];
+            break;
+
+    }
 }
 
 -(void)setCropUI{
@@ -95,6 +170,9 @@
     cv::Mat original = [MMOpenCVHelper cvMatFromUIImage:_adjustedImage];
     CGSize targetSize = _sourceImageView.contentSize;
     cv::resize(original, original, cvSize(targetSize.width, targetSize.height));
+    
+    
+//    _sourceImageView.image=[MMOpenCVHelper UIImageFromCVMat:original];
     
     std::vector<std::vector<cv::Point>>squares;
     std::vector<cv::Point> largest_square;
@@ -175,8 +253,8 @@
         [_cropRect bottomRightCornerToCGPoint:[(NSValue *)[sortedPoints objectForKey:@"2"] CGPointValue]];
         [_cropRect bottomLeftCornerToCGPoint:[(NSValue *)[sortedPoints objectForKey:@"3"] CGPointValue]];
 
-
-        
+        NSLog(@"%@ Sorted Points",sortedPoints);
+       
         
 
     }
@@ -185,6 +263,7 @@
     }
     
     original.release();
+    
     
    
 }
@@ -379,12 +458,18 @@ cv::Mat debugSquares( std::vector<std::vector<cv::Point> > squares, cv::Mat imag
 
     [UIView transitionWithView:_sourceImageView duration:0.3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
        
+        _cropImage=[MMOpenCVHelper UIImageFromCVMat:undistorted];
         _sourceImageView.image=[MMOpenCVHelper UIImageFromCVMat:undistorted];
         
 //         _sourceImageView.image = [MMOpenCVHelper UIImageFromCVMat:grayImage];//For gray image
         
     } completion:^(BOOL finished) {
-//       UIImageWriteToSavedPhotosAlbum(_sourceImageView.image, nil, nil, nil);
+        _cropRect.hidden=YES;
+        [UIView animateWithDuration:0.5 animations:^{
+            scrollView.frame=CGRectMake(0, 0, self.view.bounds.size.width, 64);
+            
+        }];
+
     }];
         
     original.release();
@@ -401,8 +486,55 @@ cv::Mat debugSquares( std::vector<std::vector<cv::Point> > squares, cv::Mat imag
    
 }
 
+
+//Image Processing
+-(UIImage *)grayImage:(UIImage *)processedImage{
+    cv::Mat grayImage = [MMOpenCVHelper cvMatGrayFromAdjustedUIImage:processedImage];
+    
+    cv::GaussianBlur(grayImage, grayImage, cvSize(11,11), 0);
+    cv::adaptiveThreshold(grayImage, grayImage, 255, cv::ADAPTIVE_THRESH_MEAN_C, cv::THRESH_BINARY, 5, 2);
+    
+    UIImage *grayeditImage=[MMOpenCVHelper UIImageFromCVMat:grayImage];
+     grayImage.release();
+    
+    return grayeditImage;
+
+}
+
+-(UIImage *)magicColor:(UIImage *)processedImage{
+    cv::Mat  original = [MMOpenCVHelper cvMatFromAdjustedUIImage:processedImage];
+    
+    cv::Mat new_image = cv::Mat::zeros( original.size(), original.type() );
+    
+    original.convertTo(new_image, -1, 1.9, -80);
+    
+    original.release();
+    UIImage *magicColorImage=[MMOpenCVHelper UIImageFromCVMat:new_image];
+    new_image.release();
+    return magicColorImage;
+   
+
+}
+
+-(UIImage *)blackandWhite:(UIImage *)processedImage{
+    cv::Mat original = [MMOpenCVHelper cvMatGrayFromAdjustedUIImage:processedImage];
+    
+    cv::Mat new_image = cv::Mat::zeros( original.size(), original.type() );
+    
+    original.convertTo(new_image, -1, 1.4, -50);
+    original.release();
+    
+    UIImage *blackWhiteImage=[MMOpenCVHelper UIImageFromCVMat:new_image];
+    new_image.release();
+
+    
+    
+    return blackWhiteImage;
+
+}
+
 - (IBAction)dismissAction:(id)sender {
-   [self.cropdelegate didFinishCropping:_sourceImageView.image from:self];
+   [self.cropdelegate didFinishCropping:[UIImage imageWithData:UIImageJPEGRepresentation(_sourceImageView.image, 0.8)] from:self];
 }
 
 

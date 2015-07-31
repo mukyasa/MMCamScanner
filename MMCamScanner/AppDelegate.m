@@ -7,7 +7,8 @@
 //
 
 #import "AppDelegate.h"
-
+#import "MMCameraPickerController.h"
+#import "UploadManager.h"
 @interface AppDelegate ()
 
 @end
@@ -17,7 +18,19 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+   
+    
     return YES;
+
+}
+
+
+
+-(void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)())completionHandler{
+    
+    self.backgroundSessionCompletionHandler=completionHandler;
+    
+    [UploadManager shared];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

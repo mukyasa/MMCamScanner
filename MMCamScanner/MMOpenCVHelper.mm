@@ -46,8 +46,18 @@
 + (cv::Mat)cvMatFromUIImage:(UIImage *)image
 {
     CGColorSpaceRef colorSpace = CGImageGetColorSpace(image.CGImage);
-    CGFloat cols = image.size.height;
-    CGFloat rows = image.size.width;
+    CGFloat cols,rows;
+    if  (image.imageOrientation == UIImageOrientationLeft
+         || image.imageOrientation == UIImageOrientationRight) {
+        cols = image.size.height;
+        rows = image.size.width;
+    }
+    else{
+        cols = image.size.width;
+        rows = image.size.height;
+ 
+    }
+    
     
     cv::Mat cvMat(rows, cols, CV_8UC4); // 8 bits per component, 4 channels
     
@@ -67,9 +77,19 @@
     cv::Mat cvMatTest;
     cv::transpose(cvMat, cvMatTest);
     
+    if  (image.imageOrientation == UIImageOrientationLeft
+         || image.imageOrientation == UIImageOrientationRight) {
+       
+    }
+    else{
+        return cvMat;
+       
+    }
     cvMat.release();
     
     cv::flip(cvMatTest, cvMatTest, 1);
+    
+    
     return cvMatTest;
 }
 

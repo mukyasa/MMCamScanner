@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <scenes>
         <!--Camera Picker Controller-->
@@ -256,20 +256,20 @@
                                     <action selector="cameraAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="ee8-kp-GGa"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="FqI-Ln-neh">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FqI-Ln-neh">
                                 <rect key="frame" x="175" y="35" width="250" height="450"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="250" id="azX-s7-giK"/>
                                 </constraints>
                                 <string key="text" base64-UTF8="YES">
-VGhpcyBDb250cm9sIENvbnNpc3QgT2YgQ3Vzb3RtIENhbWVyYSxEb2N1bWVudCBTY2FubmVyIFdpdGgg
-Q3JvcCBGZWF0dXJlLkl0IEFsc28gQ29udGFpbiBDdXN0b20gUmlwcGxlIFZpZXcgQ29udHJvbGxlciBB
-bmltYXRpb24uU3F1YXJlIERldGVjdGlvbiBBbmQgEENyb3AgRmVhdHVyZSBpcyBBZGRlZCBXaXRoIEhl
-bHAgT2YgT3BlbkNWIEZyYW1ld29yay4
+VGhpcyBDb250cm9sIENvbnNpc3QgT2YgQ3VzdG9tIENhbWVyYSwKRG9jdW1lbnQgU2Nhbm5lciBXaXRo
+IENyb3AgRmVhdHVyZS4KSXQgQWxzbyBDb250YWluIEN1c3RvbSBSaXBwbGUgVmlldyBDb250cm9sbGVy
+IEFuaW1hdGlvbi4KU3F1YXJlIERldGVjdGlvbi4gChBDcm9wIEZlYXR1cmUgaXMgQWRkZWQgV2l0aCBI
+ZWxwIE9mIE9wZW5DViBGcmFtZXdvcmsuA
 </string>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="22"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Scw-t4-mB7">

@@ -12,12 +12,16 @@
 #define backgroundHex @"2196f3"
 #import "UIColor+HexRepresentation.h"
 #import "UIImage+fixOrientation.h"
-//#import <TesseractOCR/TesseractOCR.h>
-
-@interface ViewController ()<MMCameraDelegate,MMCropDelegate/*G8TesseractDelegate*/>
+#import <TesseractOCR/TesseractOCR.h>
+#import "UploadManager.h"
+#import <CoreTelephony/CoreTelephonyDefines.h>
+@interface ViewController ()<MMCameraDelegate,MMCropDelegate,G8TesseractDelegate>
 {
     RippleAnimation *ripple;
+    
 }
+
+
 @end
 
 @implementation ViewController
@@ -27,9 +31,23 @@
     // Do any additional setup after loading the view, typically from a nib.
     [self setUI];
       self.view.backgroundColor=[UIColor colorWithHexString:@"f44336"];
+//    [self uploadReceiptImage:@"Camera.png"];
+//    [UploadManager shared];
+    NSArray *imgArr=@[@"sample.jpg",@"Camera.png",@"Crop.png",@"Done.png",@"Gallery.png"];
+    for (int i=0; i<imgArr.count; i++) {
+//        [self uploadReceiptImage:[imgArr objectAtIndex:i]];
+        NSLog(@"%d URL Hit",i);
+    }
+    
+    
    
 }
 
+
+-(NSURL *)applicationDocumentsDirectory{
+    NSArray *paths = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
+    return [paths lastObject];
+}
 
 
 
@@ -50,43 +68,41 @@
 }
 
 /*OCR Method Implementation*/
-//-(void)OCR:(UIImage *)image{
-//    // Create RecognitionOperation
-//    G8RecognitionOperation *operation = [[G8RecognitionOperation alloc] init];
-//    
-//    // Configure inner G8Tesseract object as described before
-//    operation.tesseract.language = @"eng";
-////    operation.tesseract.charWhitelist = @"01234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-//    operation.tesseract.image = [image g8_blackAndWhite];
-//    operation.tesseract.delegate=self;
-//    // Setup the recognitionCompleteBlock to receive the Tesseract object
-//    // after text recognition. It will hold the recognized text.
-//    operation.recognitionCompleteBlock = ^(G8Tesseract *recognizedTesseract) {
-//        // Retrieve the recognized text upon completion
-//        NSLog(@" OCR TEXT%@", [recognizedTesseract recognizedText]);
-//    };
-//    
-//    // Add operation to queue
-//    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-//    [queue addOperation:operation];
-//
-//}
+-(void)OCR:(UIImage *)image{
+    // Create RecognitionOperation
+    G8RecognitionOperation *operation = [[G8RecognitionOperation alloc] init];
+    
+    // Configure inner G8Tesseract object as described before
+    operation.tesseract.language = @"eng";
+//    operation.tesseract.charWhitelist = @"01234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    operation.tesseract.image = [image g8_blackAndWhite];
+    operation.tesseract.delegate=self;
+    // Setup the recognitionCompleteBlock to receive the Tesseract object
+    // after text recognition. It will hold the recognized text.
+    operation.recognitionCompleteBlock = ^(G8Tesseract *recognizedTesseract) {
+        // Retrieve the recognized text upon completion
+        NSLog(@" OCR TEXT%@", [recognizedTesseract recognizedText]);
+    };
+    
+    // Add operation to queue
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    [queue addOperation:operation];
 
+}
 
-/*OCR Delegate*/
-//#pragma mark OCR delegate
-//- (void)progressImageRecognitionForTesseract:(G8Tesseract *)tesseract {
-////    NSLog(@"progress: %lu", (unsigned long)tesseract.progress);
-//}
-//
-//- (BOOL)shouldCancelImageRecognitionForTesseract:(G8Tesseract *)tesseract {
-//    return NO;  // return YES, if you need to interrupt tesseract before it finishes
-//}
-//
-//- (void)didReceiveMemoryWarning {
-//    [super didReceiveMemoryWarning];
-//    // Dispose of any resources that can be recreated.
-//}
+#pragma mark OCR delegate
+- (void)progressImageRecognitionForTesseract:(G8Tesseract *)tesseract {
+//    NSLog(@"progress: %lu", (unsigned long)tesseract.progress);
+}
+
+- (BOOL)shouldCancelImageRecognitionForTesseract:(G8Tesseract *)tesseract {
+    return NO;  // return YES, if you need to interrupt tesseract before it finishes
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 
 
 - (IBAction)cameraAction:(id)sender {
@@ -105,11 +121,16 @@
 - (IBAction)pickerAction:(id)sender {
     _invokeCamera = [[UIImagePickerController alloc] init];
     _invokeCamera.delegate = self;
+   
     ripple=[[RippleAnimation alloc] init];
     ripple.touchPoint=self.pickerBut.frame;
     _invokeCamera.transitioningDelegate=ripple;
     _invokeCamera.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     _invokeCamera.allowsEditing = NO;
+    
+    _invokeCamera.mediaTypes = [NSArray arrayWithObjects:(NSString *)kUTTypeImage, nil];
+    
+    
      [self presentViewController:_invokeCamera animated:YES completion:nil];
 
 }
@@ -128,13 +149,14 @@
     [_invokeCamera removeFromParentViewController];
     ripple=nil;
     
-    
     CropViewController *crop=[self.storyboard instantiateViewControllerWithIdentifier:@"crop"];
     crop.cropdelegate=self;
     ripple=[[RippleAnimation alloc] init];
     crop.transitioningDelegate=ripple;
     ripple.touchPoint=self.cameraBut.frame;
-    crop.adjustedImage=[[info objectForKey:UIImagePickerControllerOriginalImage] fixOrientation];
+    crop.adjustedImage=[info objectForKey:UIImagePickerControllerOriginalImage];
+    
+
     
     [self presentViewController:crop animated:YES completion:nil];
     
@@ -167,11 +189,22 @@
 
 #pragma mark crop delegate
 -(void)didFinishCropping:(UIImage *)finalCropImage from:(CropViewController *)cropObj{
+    
+//    [self uploadReceiptImage:@"test123.jpeg" andImage:finalCropImage];
+
     [cropObj closeWithCompletion:^{
         ripple=nil;
     }];
     
     /*OCR Call*/
 //     [self OCR:finalCropImage];
+}
+
+
+//MARK Dictionary
+
+-(void)setUpDictionary{
+    
+    
 }
 @end

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "RippleAnimation.h"
-
+#import <MobileCoreServices/MobileCoreServices.h>
 @interface ViewController : UIViewController<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *cameraBut;
 @property (weak, nonatomic) IBOutlet UIButton *pickerBut;

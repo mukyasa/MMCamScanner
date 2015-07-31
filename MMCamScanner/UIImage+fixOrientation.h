@@ -12,4 +12,5 @@
 
 - (UIImage *)fixOrientation;
 +(UIImage*)renderImage:(NSString *)imagName;
++(UIImage *) scaleAndRotateImage:(UIImage *)image;
 @end

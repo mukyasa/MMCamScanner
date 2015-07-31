@@ -23,8 +23,10 @@
 - (CGSize) contentSize
 {
     CGSize imageSize = self.image.size;
+   
     CGFloat imageScale = fminf(CGRectGetWidth(self.bounds)/imageSize.width, CGRectGetHeight(self.bounds)/imageSize.height);
     CGSize finalSize = CGSizeMake(imageSize.width*imageScale, imageSize.height*imageScale);
+     NSLog(@"%f %f %f",imageSize.width,imageSize.height,imageScale);
     
     return finalSize;
 }
