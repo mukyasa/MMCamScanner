@@ -51,7 +51,6 @@
 
 
 
-
 -(void)setUI{
     self.cameraBut.tintColor=[UIColor whiteColor];
     self.cameraBut.backgroundColor=[UIColor colorWithHexString:backgroundHex];
@@ -190,7 +189,6 @@
 #pragma mark crop delegate
 -(void)didFinishCropping:(UIImage *)finalCropImage from:(CropViewController *)cropObj{
     
-//    [self uploadReceiptImage:@"test123.jpeg" andImage:finalCropImage];
 
     [cropObj closeWithCompletion:^{
         ripple=nil;

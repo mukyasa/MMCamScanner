@@ -13,6 +13,7 @@
 #define kCameraToolBarHeight 100
 #import "UIColor+HexRepresentation.h"
 #import "MMCropView.h"
+
 @interface CropViewController (){
     UIScrollView *scrollView;
 }
@@ -26,16 +27,13 @@
 
 
 -(void)viewDidLoad{
-    _sourceImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-kCameraToolBarHeight-64)];
-    [_sourceImageView setContentMode:UIViewContentModeScaleAspectFit];
-    [_sourceImageView setImage:_adjustedImage];
-//     [_sourceImageView setImage:[UIImage imageNamed:@"testtwo.jpg"]];
-    _sourceImageView.clipsToBounds=YES;
     
-    [self.view addSubview:_sourceImageView];
-  
-//    NSLog(@"%f %f",_sourceImageView.contentFrame.size.height,_sourceImageView.contentFrame.size.height);
-    
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    [self initCropFrame];
+//    [self adjustPossition];
     
     CGRect cropFrame=CGRectMake(_sourceImageView.contentFrame.origin.x,_sourceImageView.contentFrame.origin.y+64,_sourceImageView.contentFrame.size.width,_sourceImageView.contentFrame.size.height);
     _cropRect= [[MMCropView alloc] initWithFrame:cropFrame];
@@ -44,17 +42,33 @@
     UIPanGestureRecognizer *singlePan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(singlePan:)];
     singlePan.maximumNumberOfTouches = 1;
     [_cropRect addGestureRecognizer:singlePan];
-
+    
     [self setCropUI];
     [self.view bringSubviewToFront:_cropRect];
-    [self buttonsScroll];
+    
+    [self detectEdges];
+}
+
+-(void)initCropFrame{
+    _sourceImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-kCameraToolBarHeight-64)];
+    [_sourceImageView setContentMode:UIViewContentModeScaleAspectFit];
+    [_sourceImageView setImage:_adjustedImage];
+    //     [_sourceImageView setImage:[UIImage imageNamed:@"testtwo.jpg"]];
+    _sourceImageView.clipsToBounds=YES;
+   
+    
+    [self.view addSubview:_sourceImageView];
+    
+    //    NSLog(@"%f %f",_sourceImageView.contentFrame.size.height,_sourceImageView.contentFrame.size.height);
+    
+    
+       [self buttonsScroll];
     
     [UIView animateWithDuration:0.5 animations:^{
         scrollView.frame=CGRectMake(0, -64, self.view.bounds.size.width, 64);
     }];
-        
-}
 
+}
 
 
 -(void)buttonsScroll{
@@ -125,18 +139,21 @@
 -(void)setCropUI{
     //Done
     self.dismissBut.tintColor=[UIColor whiteColor];
-    self.dismissBut.backgroundColor=[UIColor colorWithHexString:backgroundHex];
-    self.dismissBut.layer.cornerRadius = self.dismissBut.frame.size.width / 2;
-    self.dismissBut.clipsToBounds=YES;
+//    self.dismissBut.backgroundColor=[UIColor colorWithHexString:backgroundHex];
+//    self.dismissBut.layer.cornerRadius = self.dismissBut.frame.size.width / 2;
+//    self.dismissBut.clipsToBounds=YES;
     
     [self.dismissBut setImage:[UIImage renderImage:@"Cancel"] forState:UIControlStateNormal];
-
+    [self.leftRotateBut setImage:[UIImage renderImage:@"Left"] forState:UIControlStateNormal];
+    [self.rightRotateBut setImage:[UIImage renderImage:@"Right"] forState:UIControlStateNormal];
     
     
     self.cropBut.tintColor=[UIColor whiteColor];
-    self.cropBut.backgroundColor=[UIColor colorWithHexString:backgroundHex];
-    self.cropBut.layer.cornerRadius = self.cropBut.frame.size.width / 2;
-    self.cropBut.clipsToBounds=YES;
+    self.leftRotateBut.tintColor=[UIColor whiteColor];
+    self.rightRotateBut.tintColor=[UIColor whiteColor];
+//    self.cropBut.backgroundColor=[UIColor colorWithHexString:backgroundHex];
+//    self.cropBut.layer.cornerRadius = self.cropBut.frame.size.width / 2;
+//    self.cropBut.clipsToBounds=YES;
     
     [self.cropBut setImage:[UIImage renderImage:@"Crop"] forState:UIControlStateNormal];
     
@@ -144,10 +161,17 @@
 
 }
 
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:YES];
-    [self detectEdges];
-}
+
+//- (void)adjustPossition
+//{
+//    CGAffineTransform saveState = _sourceImageView.transform;
+//    
+//    _sourceImageView.transform = CGAffineTransformIdentity;
+//    
+//    [_sourceImageView setFrameToFitImage];
+//    
+//    _sourceImageView.transform = saveState;
+//}
 
 -(void)singlePan:(UIPanGestureRecognizer *)gesture{
     CGPoint posInStretch = [gesture locationInView:_cropRect];
@@ -167,12 +191,11 @@
 #pragma mark OpenCV
 - (void)detectEdges
 {
-    cv::Mat original = [MMOpenCVHelper cvMatFromUIImage:_adjustedImage];
+    cv::Mat original = [MMOpenCVHelper cvMatFromUIImage:_sourceImageView.image];
     CGSize targetSize = _sourceImageView.contentSize;
     cv::resize(original, original, cvSize(targetSize.width, targetSize.height));
     
     
-//    _sourceImageView.image=[MMOpenCVHelper UIImageFromCVMat:original];
     
     std::vector<std::vector<cv::Point>>squares;
     std::vector<cv::Point> largest_square;
@@ -535,6 +558,66 @@ cv::Mat debugSquares( std::vector<std::vector<cv::Point> > squares, cv::Mat imag
 
 - (IBAction)dismissAction:(id)sender {
    [self.cropdelegate didFinishCropping:[UIImage imageWithData:UIImageJPEGRepresentation(_sourceImageView.image, 0.8)] from:self];
+}
+
+- (IBAction)rightRotateAction:(id)sender {
+    
+    CIImage *imgToRotate = [CIImage imageWithCGImage:_sourceImageView.image.CGImage];
+    
+    CGAffineTransform transform = CGAffineTransformMakeRotation(M_PI_2);
+    
+    CIImage *rotatedImage = [imgToRotate imageByApplyingTransform:transform];
+    
+    CGRect extent = [rotatedImage extent];
+    
+    CIContext *context = [CIContext contextWithOptions:@{kCIContextUseSoftwareRenderer : @(NO)}];
+    
+    CGImageRef cgImage = [context createCGImage:rotatedImage fromRect:extent];
+    
+    _adjustedImage = [UIImage imageWithCGImage:cgImage];
+    
+    
+    [UIView transitionWithView:_sourceImageView duration:0.5 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+        _sourceImageView.image = _adjustedImage;
+    } completion:nil];
+    
+     CGRect cropFrame=CGRectMake(_sourceImageView.contentFrame.origin.x,_sourceImageView.contentFrame.origin.y+64,_sourceImageView.contentFrame.size.width,_sourceImageView.contentFrame.size.height);
+    _cropRect.frame=cropFrame;
+   
+    [self detectEdges];
+    
+    CGImageRelease(cgImage);
+    
+
+}
+
+- (IBAction)leftRotateAction:(id)sender {
+    
+    CIImage *imgToRotate = [CIImage imageWithCGImage:_sourceImageView.image.CGImage];
+    
+    CGAffineTransform transform = CGAffineTransformMakeRotation(-M_PI_2);
+    
+    CIImage *rotatedImage = [imgToRotate imageByApplyingTransform:transform];
+    
+    CGRect extent = [rotatedImage extent];
+    
+    CIContext *context =  [CIContext contextWithOptions:@{kCIContextUseSoftwareRenderer : @(NO)}];
+    
+    CGImageRef cgImage = [context createCGImage:rotatedImage fromRect:extent];
+    
+    _adjustedImage = [UIImage imageWithCGImage:cgImage];
+    
+    [UIView transitionWithView:_sourceImageView duration:0.5 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+        _sourceImageView.image = _adjustedImage;
+    } completion:nil];
+    
+    CGRect cropFrame=CGRectMake(_sourceImageView.contentFrame.origin.x,_sourceImageView.contentFrame.origin.y+64,_sourceImageView.contentFrame.size.width,_sourceImageView.contentFrame.size.height);
+    _cropRect.frame=cropFrame;
+    
+    
+    [self detectEdges];
+    CGImageRelease(cgImage);
+    
 }
 
 

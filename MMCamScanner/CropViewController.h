@@ -11,6 +11,7 @@
 #import "UIImage+fixOrientation.h"
 #import "UIImageView+ContentFrame.h"
 
+#import "ProgressHUD.h"
 @class CropViewController;
 @protocol MMCropDelegate <NSObject>
 
@@ -22,9 +23,15 @@
 @property (strong, nonatomic) UIImageView *sourceImageView;
 @property (weak, nonatomic) IBOutlet UIButton *dismissBut;
 @property (weak, nonatomic) IBOutlet UIButton *cropBut;
+@property (weak, nonatomic) IBOutlet UIButton *rightRotateBut;
+@property (weak, nonatomic) IBOutlet UIButton *leftRotateBut;
+
+
 @property (strong, nonatomic) UIImage *adjustedImage,*cropgrayImage,*cropImage;
 - (IBAction)cropAction:(id)sender;
 - (IBAction)dismissAction:(id)sender;
+- (IBAction)rightRotateAction:(id)sender;
+- (IBAction)leftRotateAction:(id)sender;
 
 //Detect Edges
 -(void)detectEdges;
