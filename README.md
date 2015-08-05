@@ -9,7 +9,8 @@
  * Crop Feature Tweaked for more control in horizontal and vertical dragging.
  * NOW , Landscape and Potrait both images can be used in scanning the objects in images.
  * Addded Image Filters (Gray Scale, Magic Color ,Black and White)
- * Coming Soon(Left Rotate and Right Rotate)
+ * Left Rotate and Right Rotate
+ 
 
 **Framework**
 Add the Frameworks to see the Demo
