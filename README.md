@@ -53,7 +53,8 @@ Maximilian Mackh :[Here](https://github.com/mmackh/MAImagePickerController-of-In
 https://github.com/mukyasa/MMPaper<br />
 
 **MMTextFieldEffects:**<br />
-https://github.com/mukyasa/MMTextFieldEffects
+https://github.com/mukyasa/MMTextFieldEffects<br />
+
 **MMPaperPanFlip:**<br /> 
 https://github.com/mukyasa/MMPaperPanFlip<br />
 
