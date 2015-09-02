@@ -18,7 +18,10 @@
 -(void)didFinishCropping:(UIImage *)finalCropImage from:(CropViewController *)cropObj;
 
 @end
-@interface CropViewController : UIViewController
+@interface CropViewController : UIViewController{
+    CGFloat _rotateSlider;
+    CGRect _initialRect,final_Rect;
+}
 @property (weak,nonatomic) id<MMCropDelegate> cropdelegate;
 @property (strong, nonatomic) UIImageView *sourceImageView;
 @property (weak, nonatomic) IBOutlet UIButton *dismissBut;

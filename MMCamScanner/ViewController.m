@@ -39,11 +39,22 @@
         NSLog(@"%d URL Hit",i);
     }
     
-    
+//    NSLog(@"%lu",(unsigned long)UIImagePNGRepresentation([self loadImage]).length);
    
 }
 
+#pragma mark Document Directory
 
+- (UIImage*)loadImage
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                         NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString* path = [documentsDirectory stringByAppendingPathComponent:
+                      @"test.png" ];
+    UIImage* image = [UIImage imageWithContentsOfFile:path];
+    return image;
+}
 -(NSURL *)applicationDocumentsDirectory{
     NSArray *paths = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
     return [paths lastObject];
@@ -153,9 +164,10 @@
     ripple=[[RippleAnimation alloc] init];
     crop.transitioningDelegate=ripple;
     ripple.touchPoint=self.cameraBut.frame;
+
     crop.adjustedImage=[info objectForKey:UIImagePickerControllerOriginalImage];
     
-
+    
     
     [self presentViewController:crop animated:YES completion:nil];
     
@@ -193,16 +205,13 @@
     [cropObj closeWithCompletion:^{
         ripple=nil;
     }];
-    
+//    [self uploadData:finalCropImage];
+    NSLog(@"Size of Image %lu",(unsigned long)UIImageJPEGRepresentation(finalCropImage, 0.5).length);
+//    NSLog(@"%@ Image",finalCropImage);
     /*OCR Call*/
 //     [self OCR:finalCropImage];
 }
 
 
-//MARK Dictionary
 
--(void)setUpDictionary{
-    
-    
-}
 @end

@@ -181,6 +181,8 @@
     
     // SETTING UP CAM
     if (_mySesh == nil) _mySesh = [[AVCaptureSession alloc] init];
+    
+    //muku
     _mySesh.sessionPreset = AVCaptureSessionPresetPhoto;
     
     _captureVideoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:_mySesh];
@@ -376,7 +378,7 @@
          NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
          
          UIImage * capturedImage = [[UIImage alloc]initWithData:imageData scale:1];
-         
+         NSLog(@"%lu",(unsigned long)UIImageJPEGRepresentation(capturedImage, 1.0).length);
          if (_myDevice == [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo][0]) {
              // rear camera active
 //             CGImageRef cgRef = capturedImage.CGImage;
@@ -397,7 +399,11 @@
          }
          
          isCapturingImage = NO;
-         _capturedImageV.image = capturedImage;
+         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+             _capturedImageV.image = capturedImage;
+             
+         }];
+         
          imageData = nil;
          
         
@@ -410,7 +416,9 @@
 
 - (IBAction)capturePhoto:(id)sender {
     
+    
     [self capturePhoto];
+    [_mySesh stopRunning];
     [UIView animateWithDuration:0.3 animations:^{
         self.switchCameraBut.alpha=0;
         self.flashBut.alpha=0;
@@ -422,12 +430,16 @@
 
 - (IBAction)retakeAction:(id)sender {
     
-    _capturedImageV.image=nil;
+    
+   
+    [_mySesh startRunning];
+     _capturedImageV.image=nil;
     [UIView animateWithDuration:0.3 animations:^{
         self.switchCameraBut.alpha=1;
         self.flashBut.alpha=1;
         self.retakeBut.alpha=0;
         self.doneBut.alpha=0;
+        
     }];
 
 }
@@ -439,7 +451,9 @@
 //        [self presentViewController:crop animated:YES completion:nil];
 //    }
    
+//    [self saveImage:_capturedImageV.image];
     [self.camdelegate didFinishCaptureImage:_capturedImageV.image withMMCam:self];
+    
 }
 
 - (void)handlePinchGesture:(UIPinchGestureRecognizer *)recognizer
@@ -646,7 +660,34 @@
     
     NSURL *assetURL = [NSURL URLWithString:filePath];
     
+    NSLog(@"%@",assetURL);
     return assetURL;
+}
+
+#pragma maek new doc
+- (void)saveImage: (UIImage*)image
+{
+    if (image != nil)
+    {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                             NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString* path = [documentsDirectory stringByAppendingPathComponent:
+                          @"test.png" ];
+        NSData* data = UIImagePNGRepresentation(image);
+        [data writeToFile:path atomically:YES];
+    }
+}
+
+- (UIImage*)loadImage
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                         NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString* path = [documentsDirectory stringByAppendingPathComponent:
+                      @"test.png" ];
+    UIImage* image = [UIImage imageWithContentsOfFile:path];
+    return image;
 }
 
 @end

@@ -514,7 +514,7 @@
     for (UIView *point in self.points)
     {
         
-        CGRect extentedFrame = CGRectInset(point.frame, -30, -30);
+        CGRect extentedFrame = CGRectInset(point.frame, -20, -20);
         
 //        NSLog(@"For Point %d Location%f %f and Point %f %f",i,location.x,location.y,point.frame.origin.x,point.frame.origin.y);
         if (CGRectContainsPoint(extentedFrame, location))

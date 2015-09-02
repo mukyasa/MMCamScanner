@@ -46,8 +46,10 @@
 }
 
 -(NSURLSessionUploadTask *) uploadTaskWithURL:(NSMutableURLRequest*)urlrequest withImageData:(NSString *)imgData{
-       
-   return [self.uploadSession uploadTaskWithRequest:urlrequest fromFile:[NSURL URLWithString:imgData]];
+    
+    NSLog(@"File Path%@",[NSURL fileURLWithPath:imgData]);
+    
+    return [self.uploadSession uploadTaskWithRequest:urlrequest fromFile:[NSURL fileURLWithPath:imgData]];
     
 }
 
@@ -62,6 +64,7 @@ totalBytesExpectedToSend:(int64_t)totalBytesExpectedToSend
     
     NSDictionary *userInfo=@{@"progress":@(progress)};
     
+//    NSLog(@"Progress %f",progress);
     [[NSNotificationCenter defaultCenter] postNotificationName:@"UploadProgress" object:task userInfo:userInfo];
     
 }
