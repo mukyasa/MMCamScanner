@@ -55,6 +55,9 @@ https://github.com/mukyasa/MMPaper<br />
 **MMTextFieldEffects:**<br />
 https://github.com/mukyasa/MMTextFieldEffects<br />
 
+**MMGooglePlayNewsStand:**<br />
+https://github.com/mukyasa/MMGooglePlayNewsStand
+
 **MMPaperPanFlip:**<br /> 
 https://github.com/mukyasa/MMPaperPanFlip<br />
 
