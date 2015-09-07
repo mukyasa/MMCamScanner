@@ -71,7 +71,7 @@ Mukesh Mandora
 
 Contact: mandoramuku07@gmail.com
 
-Twitter: http://twitter.com/mukyasa1310
+Twitter: http://twitter.com/mandymuku
 
 LinkedIn: https://in.linkedin.com/in/mukeshmandora
 
