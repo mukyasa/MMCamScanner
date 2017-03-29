@@ -2,7 +2,7 @@
 #### Simulation to CamScanner app With Custom Camera and Crop Rect Validation 
 
 ## :warning: Announcement :warning:
-Swift Example and pods integration is underway
+Swift Example is underway
 
 ------------------
 
