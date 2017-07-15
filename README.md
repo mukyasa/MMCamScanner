@@ -1,8 +1,6 @@
 # MMCamScanner
 #### Simulation to CamScanner app With Custom Camera and Crop Rect Validation 
 
-## :warning: Announcement :warning:
-Swift Example is underway
 
 ------------------
 
