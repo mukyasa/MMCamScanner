@@ -10,9 +10,9 @@
  
 #### ChangeLog(31/7/2015)
  * Crop Feature Tweaked for more control in horizontal and vertical dragging.
- * NOW , Landscape and Potrait both images can be used in scanning the objects in images.
- * Addded Image Filters (Gray Scale, Magic Color ,Black and White)
- * Left Rotate and Right Rotate
+ * NOW, Landscape and Portrait both images can be used in scanning the objects in images.
+ * Addded Image Filters (Gray Scale, Magic Color, Black and White)
+ * Left and Right Rotate
  
 
 **Framework**
@@ -41,12 +41,12 @@ Maximilian Mackh :[Here](https://github.com/mmackh/MAImagePickerController-of-In
 
 **This Project Contains**
 
-1.Custom Camera(Support Potrait Only Now) with Zoom Slider,Pinch Zoom,Tap to Focus features also.<br />
+1.Custom Camera (Support Potrait Only Now) with Zoom Slider, Pinch Zoom, Tap to Focus features also.<br />
 2.Custom Ripple View Controller Animation.<br />
 3.OpenCV square Detection in Image for detecting objects.<br />
-4.OpenCV perpespective and warptransform for CROP feature.<br />
+4.OpenCV perspective and warp transform for CROP feature.<br />
 5.Crop Validation for checking INVALID RECT.<br />
-6.Memory Efficient Camera(Thanks to SimpleCam Project).<br />
+6.Memory Efficient Camera (Thanks to SimpleCam Project).<br />
 7.Tesseract OCR.<br />
 
 
